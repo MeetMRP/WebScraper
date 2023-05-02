@@ -1,5 +1,5 @@
 from flask import *
-from .Internshala import *
+from Internshala import *
 
 app = Flask(__name__)
 
