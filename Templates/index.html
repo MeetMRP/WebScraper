@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internshala Web scraper</title>
+    <style>
+        #customers {
+          font-family: Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        #customers td, #customers th {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+        
+        #customers tr:hover {background-color: #ddd;}
+        
+        #customers th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: left;
+          background-color: #04AA6D;
+          color: white;
+        }
+
+        .Header {
+            text-align: center
+        }
+    </style>
+</head>
+<body>
+    {% if DataList%}
+        {% if body %}
+            <h2 class="Header">Top 10 Internships in {{body.Category}} are: </h2>
+        {% else %}
+            <h2 class="Header">Top 10 Internships are:</h2>
+        {% endif %}
+        <hr>
+        <table id="customers">
+            <tr>
+                <th>Job Title</th>
+                <th>Location</th>
+                <th>About us</th>
+                <th>Duration</th>
+                <th>Stipend</th>
+                <th>Link</th>
+            </tr>
+            {% for Dataitem in DataList %}
+            <tr>
+                <td>{{Dataitem.name}}</td>
+                <td>{{Dataitem.location}}</td>
+                <td>{{Dataitem.about}}</td>
+                <td>{{Dataitem.duration}}</td>
+                <td>{{Dataitem.stipend}}</td>
+                <td>{{Dataitem.link}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>No internships found!!!</h1>
+    {% endif %}
+</body>
+</html>
