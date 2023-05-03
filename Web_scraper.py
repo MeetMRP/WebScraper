@@ -7,6 +7,7 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/web_Scrapper"
 db = PyMongo(app).db
 
 from Internshala import *
+from Flipkart import *
 
 @app.route('/internshala', methods = ['POST', 'GET'])
 def ScrapperApi():
@@ -25,9 +26,19 @@ def ScrapperApi():
     if request.method == 'GET':
         data = db.internshala.find_one({'URL': 'https://internshala.com/internships/work-from-home-internships/page-1'})
         DataList = data['payload']
-        # return jsonify('hi')
         body = {}
         return render_template('index.html', DataList = DataList, body = body)
+
+
+@app.route('/flipkart', methods = ['POST', 'GET'])
+def FlipkartApi():
+    if request.method == 'POST':
+        pages = 1
+        item = request.json['item']
+        url = 'https://www.flipkart.com/search?q=' + item + '&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&page='
+        DataList = Flipkart_scraper(url, pages)
+        return render_template('index2.html', DataList = DataList, item = item)
+
 
 if __name__ == '__main__':
     app.run(debug = True, port = 7777)

@@ -36,31 +36,35 @@
 </head>
 <body>
     {% if DataList%}
-        {% if body %}
-            <h2 class="Header">Top 10 Internships in {{body.Category}} are: </h2>
+        {% if item %}
+            <h2 class="Header">Top {{item}}'s on Flipkart are: </h2>
         {% else %}
-            <h2 class="Header">Top 10 Internships are:</h2>
+            <h2 class="Header">Top appliances's on Flipkart are:</h2>
         {% endif %}
         <hr>
         <table id="customers">
             <tr>
-                <td>Sr. no</td>
-                <th>Job Title</th>
-                <th>Location</th>
-                <th>About us</th>
-                <th>Duration</th>
-                <th>Stipend</th>
+                <th>Sr. no</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Star rating</th>
+                <th>Description</th>
                 <th>Link</th>
             </tr>
             {% for Dataitem in DataList %}
             <tr>
                 <td>{{loop.index}}</td>
-                <td>{{Dataitem.name}}</td>
-                <td>{{Dataitem.location}}</td>
-                <td>{{Dataitem.about}}</td>
-                <td>{{Dataitem.duration}}</td>
-                <td>{{Dataitem.stipend}}</td>
-                <td>{{Dataitem.link}}</td>
+                <td>{{Dataitem.Title}}</td>
+                <td>{{Dataitem.Price}}</td>
+                <td>{{Dataitem.Star_rating}} Stars</td>
+                <td>
+                    <ol>
+                        {% for d in Dataitem.Description %}
+                        <li>{{d}}</li>
+                        {% endfor %}
+                    </ol>
+                </td>
+                <td>{{Dataitem.Link}}</td>
             </tr>
             {% endfor %}
         </table>
