@@ -27,11 +27,11 @@ def Flipkart_scraper(url, pages):
             }
             DataList.append(data)
 
-        if db.internshala.count_documents({'URL': url + str(page_no)}) == 0:
+        if db.flipkart.count_documents({'URL': url + str(page_no)}) == 0:
             Data_db = {
                 'URL': url + str(page_no),
                 'payload': DataList
             }
-            db.internshala.insert_one(Data_db)
+            db.flipkart.insert_one(Data_db)
         page_no = page_no + 1
     return DataList
