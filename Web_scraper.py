@@ -38,6 +38,11 @@ def FlipkartApi():
         url = 'https://www.flipkart.com/search?q=' + item + '&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&page='
         DataList = Flipkart_scraper(url, pages)
         return render_template('index2.html', DataList = DataList, item = item)
+    if request.method == 'GET':
+        data = db.flipkart.find_one({'URL': 'https://www.flipkart.com/search?q=tv&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&page=1'})
+        DataList = data['payload']
+        item = 'tv'
+        return render_template('index.html', DataList = DataList, item = item)
 
 
 if __name__ == '__main__':
