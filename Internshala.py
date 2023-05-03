@@ -1,9 +1,10 @@
 import bs4
 from urllib import request as req
+from Web_scraper import db
 
 
 def Internshala_scraper(final_url, pages):
-    page_no =1
+    page_no = 1
     DataList = []
     while page_no <= pages:
         response = req.urlopen(final_url + str(page_no))
@@ -28,8 +29,13 @@ def Internshala_scraper(final_url, pages):
                 'about': About,
                     }
             DataList.append(data)
+        if db.internshala.count_documents({'URL': final_url + str(page_no)}) == 0:
+            Data_db = {
+                'URL': final_url + str(page_no),
+                'payload': DataList
+            }
+            db.internshala.insert_one(Data_db)
         page_no = page_no + 1
-    
     return DataList
 
 
